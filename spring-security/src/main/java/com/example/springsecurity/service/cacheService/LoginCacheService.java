@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Service
 public class LoginCacheService {
-    @Cacheable(key = "'loginUser-'+ #loginUser.user().id", cacheNames = "login")
+    @Cacheable(key = "'loginUser-'+ #id", cacheNames = "login")
     public String cacheLoginUser(String id ,LoginUser loginUser) {
         if (Objects.isNull(loginUser)){
             return null;
