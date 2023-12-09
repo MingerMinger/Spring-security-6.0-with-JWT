@@ -18,9 +18,9 @@ spring:
     # 编码集
     default-encoding: UTF-8
     #发送邮件的账户
-    username: 3113427330@qq.com
+    username: 邮箱
     #授权码
-    password: ucenwyjjdvxddgff
+    password: 授权码
 
     nickname: Minger
 
