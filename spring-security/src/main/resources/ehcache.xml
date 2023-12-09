@@ -5,17 +5,17 @@
 
     <diskStore path="java.io.tmpdir/ehcache" />
 
-    <cache name="users"
-           maxEntriesLocalHeap="10000"
+    <cache name="login"
+           maxEntriesLocalHeap="1000"
            maxEntriesLocalDisk="100000"
            eternal="false"
            diskSpoolBufferSizeMB="20"
-           timeToIdleSeconds="300" />
+           timeToIdleSeconds="3600" />
 
-    <cache name="books"
+    <cache name="code"
            maxEntriesLocalHeap="1000"
            maxEntriesLocalDisk="10000"
            eternal="false"
            diskSpoolBufferSizeMB="30"
-           timeToIdleSeconds="600" />
+           timeToIdleSeconds="300" />
 </ehcache>

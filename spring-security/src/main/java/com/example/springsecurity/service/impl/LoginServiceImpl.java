@@ -3,7 +3,7 @@ package com.example.springsecurity.service.impl;
 import com.example.springsecurity.model.LoginUser;
 import com.example.springsecurity.model.MyUser;
 import com.example.springsecurity.service.LoginService;
-import com.example.springsecurity.service.cacheService.LoginCacheService;
+import com.example.springsecurity.service.cacheService.LoginCache;
 import com.example.springsecurity.utils.JwtUtil;
 import jakarta.annotation.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +17,7 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private AuthenticationManager authenticationManager;
     @Resource
-    LoginCacheService cacheService;
+    LoginCache loginCache;
 
     @Override
     public String login(MyUser user) {
@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
         String jwt = JwtUtil.createJWT(loginUser.user().getId().toString());
 
         // 将用户信息存入ehcache,可以使用redis
-        cacheService.cacheLoginUser("loginUser-"+loginUser.user().getId(),loginUser);
+        loginCache.putCacheLoginUser("loginUser-" + loginUser.user().getId(), loginUser);
 
         return jwt;
     }

@@ -3,7 +3,7 @@ package com.example.springsecurity.filter;
 import com.alibaba.fastjson.JSON;
 import com.example.springsecurity.model.LoginUser;
 import com.example.springsecurity.model.MyUser;
-import com.example.springsecurity.service.cacheService.LoginCacheService;
+import com.example.springsecurity.service.cacheService.LoginCache;
 import com.example.springsecurity.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
@@ -27,7 +27,7 @@ import java.util.List;
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Resource
-    LoginCacheService cacheService;
+    LoginCache cacheService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -47,8 +47,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
             // 从Redis中获取用户信息
             // todo 将User（实体）和UserDetails(loginUser)分开，放入缓存里的是user
+            String s = cacheService.cacheLoginUser("loginUser-" + userId, null);
             MyUser user = JSON.
-                    parseObject(cacheService.cacheLoginUser("loginUSer-"+userId,null),MyUser.class);
+                    parseObject(cacheService.cacheLoginUser("loginUser-" + userId, null), MyUser.class);
             if (ObjectUtils.isEmpty(user)) {
                 throw new RemoteException("用户未登陆!");
             }

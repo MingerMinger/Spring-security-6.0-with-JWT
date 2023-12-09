@@ -26,14 +26,14 @@ public class SecurityConfig {
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests((authorize)->authorize
-                        .requestMatchers("/user/login").permitAll()//无需授权即可访问的url，多个地址可以这样写。
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/user/login", "/user/register", "/kaptcha", "/user/register/code").permitAll()//无需授权即可访问的url，多个地址可以这样写。
                         .anyRequest().authenticated());
 //        http.formLogin(from->from.loginProcessingUrl("/user/login"));
         http.formLogin(AbstractHttpConfigurer::disable);
@@ -55,7 +55,7 @@ public class SecurityConfig {
 
     //密码加密用的，不然没法做密码比对。
     @Bean
-    public PasswordEncoder getPwdEncoder(){
+    public PasswordEncoder getPwdEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

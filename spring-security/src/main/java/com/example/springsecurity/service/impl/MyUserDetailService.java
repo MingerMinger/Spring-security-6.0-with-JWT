@@ -27,7 +27,7 @@ public class MyUserDetailService implements UserDetailsService {
 
 
         MyUser user = userMapper.findByUsername(username);
-        if (user == null){
+        if (user == null) {
             throw new RuntimeException("账号不存在！！");
         }
         //从实体类中获取用户的密码。
